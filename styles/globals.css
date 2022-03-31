@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.PhoneInputInput{
+  outline: none;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
