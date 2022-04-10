@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import airports from "../../data/airports";
-import popularFlights from "../../data/popularFlights";
+// import airports from "../../data/airports";
+import fromFlight from "../../data/popularFromFlights";
+import toFlight from "../../data/popularToFlights";
 
 const HeaderVisited = ({ location }: any) => {
   const router = useRouter();
@@ -31,37 +32,37 @@ const HeaderVisited = ({ location }: any) => {
     router.push("/thanks");
   };
 
-  function getTo() {
-    for (let i = 0; i < popularFlights.length; i++) {
-      if (popularFlights[i].from === From) {
-        setTo(popularFlights[i].to);
-        break;
-      }
-    }
-  }
+  // function getTo() {
+  //   for (let i = 0; i < popularFlights.length; i++) {
+  //     if (popularFlights[i].from === From) {
+  //       setTo(popularFlights[i].to);
+  //       break;
+  //     }
+  //   }
+  // }
 
-  useEffect(() => {
-    function getFrom() {
-      let from = airports.find((airport) => airport.location === location.city);
-      if (from) {
-        setFrom(`${from.location}-${from.name}-${from.country}`);
-        getTo();
-      }
-    }
-    getFrom();
-  }, [location.city]);
+  // useEffect(() => {
+  //   function getFrom() {
+  //     let from = airports.find((airport) => airport.location === location.city);
+  //     if (from) {
+  //       setFrom(`${from.location}-${from.name}-${from.country}`);
+  //       getTo();
+  //     }
+  //   }
+  //   getFrom();
+  // }, [location.city]);
 
-  useEffect(() => {
-    function getTo() {
-      for (let i = 0; i < popularFlights.length; i++) {
-        if (popularFlights[i].from === From) {
-          setTo(popularFlights[i].to);
-          break;
-        }
-      }
-    }
-    getTo();
-  }, [From]);
+  // useEffect(() => {
+  //   function getTo() {
+  //     for (let i = 0; i < popularFlights.length; i++) {
+  //       if (popularFlights[i].from === From) {
+  //         setTo(popularFlights[i].to);
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   getTo();
+  // }, [From]);
 
   return (
     <>
@@ -85,27 +86,62 @@ const HeaderVisited = ({ location }: any) => {
                     className="p-2 outline-none rounded-sm"
                     type="text"
                     placeholder="From"
-                    list="airportsList"
+                    list="fromAirportsList"
                     value={From ? From : ""}
                     onChange={(e) => setFrom(e.target.value)}
                   />
-                  <datalist id="airportsList">
-                    {airports.map((airport, index) => {
-                      return (
-                        <option key={index}>
-                          {airport.location}-{airport.name}-{airport.country}
-                        </option>
-                      );
+                  <datalist id="fromAirportsList">
+                    <option>Nearest Airports</option>
+                    {fromFlight.map((airport, index) => {
+                      if (airport.city === location.city) {
+                        return airport.nearestAirports.map((air, index) => {
+                          return (
+                            <option key={index} value={airport.city}>
+                              {air}, {airport.country}
+                            </option>
+                          );
+                        });
+                      }
+                    })}
+                    <option>Most Popular</option>
+                    {fromFlight.map((airport, index) => {
+                      if (airport.city !== location.city) {
+                        
+                          return (
+                            <option key={index}>
+                              {airport.city}, {airport.country}
+                            </option>
+                          )
+                      }
                     })}
                   </datalist>
                   <input
                     className="p-2 outline-none rounded-sm"
                     type="text"
                     placeholder="To"
-                    list="airportsList"
+                    list="toAirportsList"
                     value={To}
                     onChange={(e) => setTo(e.target.value)}
                   />
+
+                  <datalist id="toAirportsList">
+                    <option>Popular Airports</option>
+                    {toFlight.map((flight, index) => {
+                      if (flight.fromCity === From) {
+                        return flight.toAirports.map((airport, index) => {
+                          return (
+                            <option key={index} value={`${airport.city}, ${airport.country}`}>
+                              {airport.airport}
+                            </option>
+                          );
+                        });
+                      }
+                    })}
+                    {/* <option>
+                      Popular Cities
+                    </option> */}
+                  </datalist>
+
                   <DatePicker
                     className="p-2 outline-none w-40 rounded-sm"
                     selected={startDate}
@@ -232,14 +268,14 @@ const HeaderVisited = ({ location }: any) => {
                       placeholder="Email"
                     />
                     <PhoneInput
-                    className="text-black w-1/2 bg-white rounded-sm p-2"
+                      className="text-black w-1/2 bg-white rounded-sm p-2"
                       defaultCountry={location.country}
                       value={value}
                       placeholder="Phone number"
                       onChange={setValue}
                       inputStyle={{
                         border: "none",
-                        outline: "none"
+                        outline: "none",
                       }}
                     />
                   </div>
