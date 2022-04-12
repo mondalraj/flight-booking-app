@@ -1,5 +1,30 @@
 const popularToFlights: any = [
     {
+        fromCity: "any",
+        toAirports: [
+            {
+                country: "India",
+                city: "Delhi",
+                airport: "INDIRA GANDHI INTERNATIONAL AIRPORT"
+            },
+            {
+                country: "England",
+                city: "London",
+                airport: "London City Airport"
+            },
+            {
+                country: "Hong Kong",
+                city: "City of Victoria",
+                airport: "Hong Kong International Airport"
+            },
+            {
+                country: "Netherlands",
+                city: "Amsterdam",
+                airport: "Amsterdam Airport Schiphol"
+            },
+        ],
+    },
+    {
         fromCity: "Delhi",
         toAirports: [
             {
@@ -28,7 +53,7 @@ const popularToFlights: any = [
                 airport: "London City Airport"
             },
         ],
-    },
+    }
 ];
 
 export default popularToFlights;

@@ -19,6 +19,7 @@ const HeaderVisited = ({ location }: any) => {
   const [value, setValue] = useState();
 
   const [fareInfo, setFareInfo] = useState(false);
+  const [fromPopularSelected, setFromPopularSelected] = useState(false);
   const [From, setFrom] = useState("");
   const [To, setTo] = useState("");
 
@@ -88,12 +89,19 @@ const HeaderVisited = ({ location }: any) => {
                     placeholder="From"
                     list="fromAirportsList"
                     value={From ? From : ""}
-                    onChange={(e) => setFrom(e.target.value)}
+                    onChange={(e) => {
+                      setFrom(e.target.value)
+                      setFromPopularSelected(true)
+                      if(e.target.value === ""){
+                        setFromPopularSelected(false)
+                      }
+                    }}
                   />
                   <datalist id="fromAirportsList">
                     <option>Nearest Airports</option>
                     {fromFlight.map((airport, index) => {
                       if (airport.city === location.city) {
+                        
                         return airport.nearestAirports.map((air, index) => {
                           return (
                             <option key={index} value={airport.city}>
@@ -125,7 +133,7 @@ const HeaderVisited = ({ location }: any) => {
                   />
 
                   <datalist id="toAirportsList">
-                    <option>Popular Airports</option>
+                    <option>Popular Airports {From ? `from ${From}`:""}</option>
                     {toFlight.map((flight, index) => {
                       if (flight.fromCity === From) {
                         return flight.toAirports.map((airport, index) => {
@@ -137,6 +145,17 @@ const HeaderVisited = ({ location }: any) => {
                         });
                       }
                     })}
+                    {
+                      fromPopularSelected === false ? (
+                        toFlight[0].toAirports.map((airport, index) => {
+                          return(
+                            <option key={index} value={`${airport.city}, ${airport.country}`}>
+                              {airport.airport}
+                            </option>
+                          )
+                        })
+                      ):""
+                    }
                     {/* <option>
                       Popular Cities
                     </option> */}
