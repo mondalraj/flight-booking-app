@@ -7,12 +7,12 @@ const popularFromFlights: any = [
     {
         country: "Switzerland",
         city: "Bern",
-        nearestAirports: ["Bern Airport", "EuroAirport Basel-Mulhouse-Freiburg", "Interlaken Airport", "Grenchen Airport", "Lausanne Airport"],
+        nearestAirports: ["Lausanne Airport"],
     },
     {
         country: "England",
         city: "London",
-        nearestAirports: ["Heathrow Airport", "Gatwick Airport", "Luton Airport", "London City Airport"],
+        nearestAirports: ["London City Airport"],
     },
 ];
 

@@ -69,7 +69,7 @@ const HeaderVisited = ({ location }: any) => {
     <>
       {!fareInfo ? (
         <header>
-          <div className="w-screen h-screen flex flex-col justify-center items-center bg-[url('https://elitetraveler.com/wp-content/uploads/2020/11/private-jet-in-clouds-scaled-e1606414154885.jpg')] bg-no-repeat bg-cover bg-center relative pt-16">
+          <div className="w-screen h-screen flex flex-col pt-48 items-center bg-[url('https://elitetraveler.com/wp-content/uploads/2020/11/private-jet-in-clouds-scaled-e1606414154885.jpg')] bg-no-repeat bg-cover bg-center relative">
             <div className="bg-gradient-to-b from-black opacity-50 absolute top-0 right-0 left-0 bottom-0 z-10"></div>
             <div className="z-40 w-full flex flex-col justify-center items-center gap-4">
               <h2 className="text-white font-bold text-6xl tracking-wide">
@@ -98,7 +98,7 @@ const HeaderVisited = ({ location }: any) => {
                     }}
                   />
                   <datalist id="fromAirportsList">
-                    <option>Nearest Airports</option>
+                    <option >Nearest Airports</option>
                     {fromFlight.map((airport, index) => {
                       if (airport.city === location.city) {
                         
@@ -114,12 +114,13 @@ const HeaderVisited = ({ location }: any) => {
                     <option>Most Popular</option>
                     {fromFlight.map((airport, index) => {
                       if (airport.city !== location.city) {
-                        
+                        return airport.nearestAirports.map((air, index) => {
                           return (
-                            <option key={index}>
-                              {airport.city}, {airport.country}
+                            <option key={index} value={airport.city}>
+                              {air}, {airport.country}
                             </option>
-                          )
+                          );
+                        });
                       }
                     })}
                   </datalist>
@@ -133,7 +134,7 @@ const HeaderVisited = ({ location }: any) => {
                   />
 
                   <datalist id="toAirportsList">
-                    <option>Popular Airports {From ? `from ${From}`:""}</option>
+                    <option>{From ? `Popular Airports from ${From}`:"Popular Airports"}</option>
                     {toFlight.map((flight, index) => {
                       if (flight.fromCity === From) {
                         return flight.toAirports.map((airport, index) => {

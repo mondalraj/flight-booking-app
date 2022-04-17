@@ -53,6 +53,61 @@ const popularToFlights: any = [
                 airport: "London City Airport"
             },
         ],
+    },
+    {
+        fromCity: "Bern",
+        toAirports: [
+            {
+                country: "Switzerland",
+                city: "French Alsace region",
+                airport: "EuroAirport Basel-Mulhouse-Freiburg"
+            },
+            {
+                country: "India",
+                city: "Bangalore",
+                airport: "Kempegowda International Airport Bengaluru"
+            },
+            {
+                country: "Saudi Arabia",
+                city: "Dubai",
+                airport: "Dubai International Airport"
+            },
+            {
+                country: "England",
+                city: "London",
+                airport: "London City Airport"
+            },
+        ],
+    },
+    {
+        fromCity: "London",
+        toAirports: [
+            {
+                country: "India",
+                city: "Delhi",
+                airport: "Indira Gandhi International Airport"
+            },
+            {
+                country: "France",
+                city: "Lyon",
+                airport: "EuroAirport Basel-Mulhouse-Freiburg"
+            },
+            {
+                country: "Switzerland",
+                city: "Lebern",
+                airport: "Grenchen Airport"
+            },
+            {
+                country: "Saudi Arabia",
+                city: "Dubai",
+                airport: "Dubai International Airport"
+            },
+            {
+                country: "Switzerland",
+                city: "Lausanne",
+                airport: "Lausanne Airport"
+            },
+        ],
     }
 ];
 
